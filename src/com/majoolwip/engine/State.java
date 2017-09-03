@@ -20,48 +20,11 @@ package com.majoolwip.engine;
 /**
  *
  * @author majoolwip
+ * @description Defines a state of the engine. Example: menu, playing, settings, etc.
  */
-public class MajEngine 
+public abstract class State
 {
-    private static Window window;
-    
-    private static volatile boolean running = false; //Control the games main loop
-    private static double FRAME_CAP = 1.0 / 60.0;    //Time frame for 60 frames every one second.
-    
-    public MajEngine()
-    {
-        
-    }
-    
-    public void start()
-    {
-        
-    }
-    
-    public void stop()
-    {
-        
-    }
-    
-    public void run()
-    {
-        
-    }
-    
-    public void cleanUp()
-    {
-        
-    }
-
-    public static Window getWindow()
-    {
-        return window;
-    }
-
-    public static boolean isRunning()
-    {
-        return running;
-    }
-    
-    
+    public abstract void init();
+    public abstract void update(float dt);
+    public abstract void render(Renderer r);
 }

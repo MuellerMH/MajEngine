@@ -21,47 +21,7 @@ package com.majoolwip.engine;
  *
  * @author majoolwip
  */
-public class MajEngine 
+public class Input
 {
-    private static Window window;
-    
-    private static volatile boolean running = false; //Control the games main loop
-    private static double FRAME_CAP = 1.0 / 60.0;    //Time frame for 60 frames every one second.
-    
-    public MajEngine()
-    {
-        
-    }
-    
-    public void start()
-    {
-        
-    }
-    
-    public void stop()
-    {
-        
-    }
-    
-    public void run()
-    {
-        
-    }
-    
-    public void cleanUp()
-    {
-        
-    }
-
-    public static Window getWindow()
-    {
-        return window;
-    }
-
-    public static boolean isRunning()
-    {
-        return running;
-    }
-    
     
 }

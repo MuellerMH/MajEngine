@@ -17,51 +17,29 @@
  */
 package com.majoolwip.engine;
 
+import java.awt.image.DataBufferInt;
+
 /**
  *
  * @author majoolwip
  */
-public class MajEngine 
+public class Renderer
 {
-    private static Window window;
+    private int[] p;
+    private int w,h;
     
-    private static volatile boolean running = false; //Control the games main loop
-    private static double FRAME_CAP = 1.0 / 60.0;    //Time frame for 60 frames every one second.
-    
-    public MajEngine()
+    public Renderer()
     {
-        
+        this.w = MajEngine.getWindow().getWidth();
+        this.h = MajEngine.getWindow().getHeight();
+        this.p = ((DataBufferInt)MajEngine.getWindow().getImage().getRaster().getDataBuffer()).getData();
     }
     
-    public void start()
+    public void clear()
     {
-        
+        for(int i = 0; i < p.length; i++)
+        {
+            p[i] = 0;
+        }
     }
-    
-    public void stop()
-    {
-        
-    }
-    
-    public void run()
-    {
-        
-    }
-    
-    public void cleanUp()
-    {
-        
-    }
-
-    public static Window getWindow()
-    {
-        return window;
-    }
-
-    public static boolean isRunning()
-    {
-        return running;
-    }
-    
-    
 }

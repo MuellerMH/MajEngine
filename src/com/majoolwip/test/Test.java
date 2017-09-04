@@ -15,23 +15,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.majoolwip.engine;
+package com.majoolwip.test;
 
-import java.awt.image.DataBufferInt;
+import com.majoolwip.engine.MajEngine;
+import com.majoolwip.engine.Renderer;
+import com.majoolwip.engine.State;
 
 /**
  *
  * @author majoolwip
  */
-public class Renderer
+public class Test extends State
 {
-    private int[] p;
-    private int w,h;
-    
-    public Renderer()
+
+    @Override
+    public void init() 
     {
-        this.w = MajEngine.getWindow().getWidth();
-        this.h = MajEngine.getWindow().getHeight();
-        this.p = ((DataBufferInt)MajEngine.getWindow().getImage().getRaster().getDataBuffer()).getData();
+    }
+
+    @Override
+    public void update(float dt) 
+    {
+    }
+
+    @Override
+    public void render(Renderer r) 
+    {
+    }
+    
+    public static void main(String args[])
+    {
+        MajEngine eng = new MajEngine(new Test());
+        eng.start();
     }
 }

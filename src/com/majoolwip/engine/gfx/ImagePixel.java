@@ -15,23 +15,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.majoolwip.engine;
-
-import java.awt.image.DataBufferInt;
+package com.majoolwip.engine.gfx;
 
 /**
  *
  * @author majoolwip
  */
-public class Renderer
+public class ImagePixel extends Pixel
 {
-    private int[] p;
-    private int w,h;
-    
-    public Renderer()
+    public int x, y;
+    public ImagePixel(int x, int y, int color)
     {
-        this.w = MajEngine.getWindow().getWidth();
-        this.h = MajEngine.getWindow().getHeight();
-        this.p = ((DataBufferInt)MajEngine.getWindow().getImage().getRaster().getDataBuffer()).getData();
+        super(color);
+        this.x = x;
+        this.y = y;
     }
 }

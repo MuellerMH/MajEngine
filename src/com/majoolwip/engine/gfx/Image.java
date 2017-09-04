@@ -15,23 +15,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.majoolwip.engine;
+package com.majoolwip.engine.gfx;
 
-import java.awt.image.DataBufferInt;
+import java.awt.image.BufferedImage;
 
 /**
  *
  * @author majoolwip
  */
-public class Renderer
+public class Image
 {
-    private int[] p;
-    private int w,h;
+    public ImagePixel[] pixels;
+    public int width, height;
     
-    public Renderer()
+    public Image(String path)
     {
-        this.w = MajEngine.getWindow().getWidth();
-        this.h = MajEngine.getWindow().getHeight();
-        this.p = ((DataBufferInt)MajEngine.getWindow().getImage().getRaster().getDataBuffer()).getData();
+        BufferedImage image = null;
     }
 }

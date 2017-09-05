@@ -103,7 +103,7 @@ public class MajEngine implements Runnable
             
             if(render)
             {
-                renderer.clearDepth();
+                renderer.clear();
                 state.render(renderer);
                 if(debug)
                     renderer.drawString("Fps-" + fps, 0xffffffff, 0, 0);
@@ -138,6 +138,20 @@ public class MajEngine implements Runnable
     {
         return running;
     }
+
+    public static Renderer getRenderer() {
+        return renderer;
+    }
+
+    public static Input getInput() {
+        return input;
+    }
+
+    public static State getState() {
+        return state;
+    }
+    
+    
     
     
 }

@@ -39,7 +39,7 @@ public class GUIContainer
     
     private Node head;
   
-    private boolean focus = false;
+    private int size = 0;
     private boolean show = true;
     
     public GUIContainer()
@@ -59,7 +59,8 @@ public class GUIContainer
                 if(prev != null)
                     prev.next = cur.next;
                 else
-                    head = head.next;    
+                    head = head.next; 
+                size--;
             }
             prev = cur;
             cur = cur.next;
@@ -79,17 +80,14 @@ public class GUIContainer
     public void add(GUIObject object)
     {
         Node newNode = new Node(object, head);
+        object.setParent(this);
         head = newNode;
+        size++;
     }
     
-    public boolean isFocus() 
+    public int getSize()
     {
-        return focus;
-    }
-
-    public void setFocus(boolean focus) 
-    {
-        this.focus = focus;
+        return size;
     }
 
     public boolean isShow() {

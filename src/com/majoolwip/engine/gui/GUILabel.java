@@ -18,52 +18,36 @@
 package com.majoolwip.engine.gui;
 
 import com.majoolwip.engine.Renderer;
+import com.majoolwip.engine.gfx.Font;
 
 /**
  *
  * @author Majoolwip
  */
-public abstract class GUIObject 
+public class GUILabel extends GUIObject
 {
-    protected GUIEvent event;
-    protected GUIContainer parent;
+    private Font font = Font.STANDARD;
     
-    protected String tag = "null";
-    protected boolean dead = false;
-    protected int depth = 0;
+    private String text;
+    private int x, y;
+    private int textColor;
     
-    public abstract void update(float dt);
-    public abstract void render(Renderer r);
-
-    public void setEvent(GUIEvent event) {
-        this.event = event;
+    public GUILabel(String text, int x, int y)
+    {
+        this.text = text;
+        this.x = x;
+        this.y = y;
     }
+    
+    @Override
+    public void update(float dt) {}
 
-    public void setParent(GUIContainer parent) {
-        this.parent = parent;
+    @Override
+    public void render(Renderer r) 
+    {
+        r.setDepth(depth);
+        r.setFont(font);
+        r.drawString(text, textColor, x, y);
     }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public void setDead(boolean dead) {
-        this.dead = dead;
-    }
-
-    public GUIEvent getEvent() {
-        return event;
-    }
-
-    public GUIContainer getParent() {
-        return parent;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public boolean isDead() {
-        return dead;
-    }
+    
 }

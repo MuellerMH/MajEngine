@@ -30,6 +30,7 @@ public class Font
     public int[] widths;
     
     private int numberOfUnicodes = 0;
+    private int avgCharWidth = 0;
     
     public Font(String path)
     {
@@ -59,10 +60,34 @@ public class Font
                 unicode++;
             }
         }
+        
+        for(int i = 0; i < numberOfUnicodes; i++)
+        {
+            avgCharWidth += widths[i];
+        }
+        avgCharWidth /= numberOfUnicodes;
     }
     
     public int getNumberOfUnicodes()
     {
         return numberOfUnicodes;
+    }
+    
+    public int getStringWidth(String text)
+    {
+        int res = 0;
+        for(int i = 0; i < text.length(); i++)
+        {
+            int unicode = text.codePointAt(i);
+            if(unicode >= numberOfUnicodes)
+                unicode = 0;
+            res += widths[unicode];
+        }
+        return res;
+    }
+    
+    public int getAvgCharWidth()
+    {
+        return avgCharWidth;
     }
 }

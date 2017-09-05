@@ -20,7 +20,8 @@ package com.majoolwip.test;
 import com.majoolwip.engine.MajEngine;
 import com.majoolwip.engine.Renderer;
 import com.majoolwip.engine.State;
-import com.majoolwip.engine.gfx.Font;
+import com.majoolwip.engine.gui.GUIButton;
+import com.majoolwip.engine.gui.GUIContainer;
 
 /**
  *
@@ -28,21 +29,26 @@ import com.majoolwip.engine.gfx.Font;
  */
 public class Test extends State
 {
+    public GUIContainer gc;
 
     @Override
     public void init() 
     {
+        gc = new GUIContainer();
+        gc.setShow(true);
+        gc.add(new GUIButton("Test Button", 25,25,2,2));
     }
 
     @Override
     public void update(float dt) 
     {
+        gc.update(dt);
     }
 
     @Override
     public void render(Renderer r) 
     {
-
+        gc.render(r);
     }
     
     public static void main(String args[])

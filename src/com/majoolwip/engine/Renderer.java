@@ -30,22 +30,22 @@ public class Renderer
     private Font font = Font.STANDARD;
     
     private int[] pixels;
-    private int[] depth;
-    private int width, height;
+    private int[] depthBuffer;
+    private int width, height, depth;
     
     public Renderer()
     {
         width = MajEngine.getWindow().getWidth();
         height = MajEngine.getWindow().getHeight();
         pixels = ((DataBufferInt)MajEngine.getWindow().getImage().getRaster().getDataBuffer()).getData();
-        depth = new int[pixels.length];
+        depthBuffer = new int[pixels.length];
     }
     
-    public void clearDepth()
+    public void clear()
     {
-        for(int i = 0; i < depth.length; i++)
+        for(int i = 0; i < depthBuffer.length; i++)
         {
-            depth[i] = 0;
+            depthBuffer[i] = 0;
         }
     }
     
@@ -54,7 +54,12 @@ public class Renderer
         if(x < 0 || x >= width || y < 0 || y >= height)
             return;
         int index = x + y * width;
+        if(value == 0xffff00ff)
+            return;
+        if(depthBuffer[index] > depth)
+            return;
         pixels[index] = value;
+        depthBuffer[index] = depth;
     }
     
     public void drawString(String text, int color, int offX, int offY)
@@ -68,7 +73,8 @@ public class Renderer
             {
                 for(int y = 1; y < font.fontImage.height; y++)
                 {
-                    setPixel(x + offX, y + offY, font.fontImage.pixels[(x + font.offsets[unicode]) + y * font.fontImage.width]);
+                    if(font.fontImage.pixels[(x + font.offsets[unicode]) + y * font.fontImage.width] == -1)
+                        setPixel(x + offX, y + offY, color);
                 }
             }
             offX += font.widths[unicode];
@@ -110,6 +116,16 @@ public class Renderer
                 setPixel(x + offX, y + offY, color);
             }
         }
+    }
+    
+    public void setDepth(int depth)
+    {
+        this.depth = depth;   
+    }
+    
+    public void setFont(Font font)
+    {
+        this.font = font;
     }
    
 }

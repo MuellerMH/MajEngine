@@ -17,6 +17,8 @@
  */
 package com.majoolwip.engine;
 
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author majoolwip
@@ -30,6 +32,7 @@ public class MajEngine implements Runnable
     
     private static volatile boolean running = false; //Control the games main loop
     private static double FRAME_CAP = 1.0 / 60.0;    //Time frame for 60 frames every one second.
+    private static boolean debug = false;
     
     public MajEngine(State state)
     {
@@ -75,20 +78,38 @@ public class MajEngine implements Runnable
             lastTime = firstTime;
             
             unprocessedTime += passedTime;
+            frameTime += passedTime;
             
             while(unprocessedTime >= FRAME_CAP)
             {
                 unprocessedTime -= FRAME_CAP;
                 render = true;
                 
+                if(input.isKeyUp(KeyEvent.VK_F1))
+                {
+                    debug = !debug;
+                }
+                
                 state.update((float)FRAME_CAP);
                 input.update();
+                
+                if(frameTime >= 1.0)
+                {
+                    frameTime = 0;
+                    fps = frames;
+                    frames = 0;
+                }
             }
             
             if(render)
             {
+                renderer.clearDepth();
                 state.render(renderer);
+                if(debug)
+                    renderer.drawString("Fps-" + fps, 0xffffffff, 0, 0);
                 window.update();
+                frames++;
+                
             }
             else
             {
@@ -99,11 +120,13 @@ public class MajEngine implements Runnable
                 catch(Exception e){}
             }
         }
+        
+        cleanUp();
     }
     
     public void cleanUp()
     {
-        
+        window.dispose();
     }
 
     public static Window getWindow()

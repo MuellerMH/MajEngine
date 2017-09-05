@@ -17,6 +17,8 @@
  */
 package com.majoolwip.engine;
 
+import com.majoolwip.engine.gfx.Font;
+import com.majoolwip.engine.gfx.Image;
 import java.awt.image.DataBufferInt;
 
 /**
@@ -25,13 +27,89 @@ import java.awt.image.DataBufferInt;
  */
 public class Renderer
 {
-    private int[] p;
-    private int w,h;
+    private Font font = Font.STANDARD;
+    
+    private int[] pixels;
+    private int[] depth;
+    private int width, height;
     
     public Renderer()
     {
-        this.w = MajEngine.getWindow().getWidth();
-        this.h = MajEngine.getWindow().getHeight();
-        this.p = ((DataBufferInt)MajEngine.getWindow().getImage().getRaster().getDataBuffer()).getData();
+        width = MajEngine.getWindow().getWidth();
+        height = MajEngine.getWindow().getHeight();
+        pixels = ((DataBufferInt)MajEngine.getWindow().getImage().getRaster().getDataBuffer()).getData();
+        depth = new int[pixels.length];
     }
+    
+    public void clearDepth()
+    {
+        for(int i = 0; i < depth.length; i++)
+        {
+            depth[i] = 0;
+        }
+    }
+    
+    public void setPixel(int x, int y, int value)
+    {
+        if(x < 0 || x >= width || y < 0 || y >= height)
+            return;
+        int index = x + y * width;
+        pixels[index] = value;
+    }
+    
+    public void drawString(String text, int color, int offX, int offY)
+    {
+        for(int i = 0; i < text.length(); i++)
+        {
+            int unicode = text.codePointAt(i);
+            if(unicode >= font.getNumberOfUnicodes())
+                unicode = 0;
+            for(int x = 0; x < font.widths[unicode]; x++)
+            {
+                for(int y = 1; y < font.fontImage.height; y++)
+                {
+                    setPixel(x + offX, y + offY, font.fontImage.pixels[(x + font.offsets[unicode]) + y * font.fontImage.width]);
+                }
+            }
+            offX += font.widths[unicode];
+        }
+    }
+    
+    public void drawImage(Image image, int offX, int offY)
+    {
+        for(int x = 0; x < image.width; x++)
+        {
+            for(int y = 0; y < image.height; y++)
+            {
+                setPixel(x + offX, y + offY, image.pixels[x + y * image.width]);
+            }
+        }
+    }
+    
+    public void drawBox(int offX, int offY, int w, int h, int color)
+    {
+        for(int x = 0; x < w; x++)
+        {
+            setPixel(x + offX, offY, color);
+            setPixel(x + offX, offY + (h - 1), color);
+        }
+        
+        for(int y = 0; y < h; y++)
+        {
+            setPixel(offX, y + offY, color);
+            setPixel(offX + (w - 1), y + offY, color);
+        }
+    }
+    
+    public void drawBoxFill(int offX, int offY, int w, int h, int color)
+    {
+        for(int y = 0; y < h; y++)
+        {
+            for(int x = 0; x < w; x++)
+            {
+                setPixel(x + offX, y + offY, color);
+            }
+        }
+    }
+   
 }

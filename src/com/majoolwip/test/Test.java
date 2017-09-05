@@ -20,6 +20,7 @@ package com.majoolwip.test;
 import com.majoolwip.engine.MajEngine;
 import com.majoolwip.engine.Renderer;
 import com.majoolwip.engine.State;
+import com.majoolwip.engine.gfx.Font;
 
 /**
  *
@@ -41,6 +42,7 @@ public class Test extends State
     @Override
     public void render(Renderer r) 
     {
+
     }
     
     public static void main(String args[])

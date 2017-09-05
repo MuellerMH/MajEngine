@@ -71,6 +71,9 @@ public class Window
         canvas.createBufferStrategy(2);
         buffer = canvas.getBufferStrategy();
         graphics = buffer.getDrawGraphics();
+        
+        frame.requestFocus();
+        canvas.requestFocus();
     }
 
     public void update()

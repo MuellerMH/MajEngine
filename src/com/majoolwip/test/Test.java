@@ -22,6 +22,7 @@ import com.majoolwip.engine.Renderer;
 import com.majoolwip.engine.State;
 import com.majoolwip.engine.gui.GUIButton;
 import com.majoolwip.engine.gui.GUIContainer;
+import com.majoolwip.engine.gui.GUITextField;
 
 /**
  *
@@ -37,6 +38,7 @@ public class Test extends State
         gc = new GUIContainer();
         gc.setShow(true);
         gc.add(new GUIButton("Test Button", 25,25,2,2));
+        gc.add(new GUITextField(25, 50, 10));
     }
 
     @Override

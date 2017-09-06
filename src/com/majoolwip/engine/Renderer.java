@@ -32,6 +32,7 @@ public class Renderer
     private int[] pixels;
     private int[] depthBuffer;
     private int width, height, depth;
+    private int limX, limY, limW, limH;
     
     public Renderer()
     {
@@ -39,6 +40,10 @@ public class Renderer
         height = MajEngine.getWindow().getHeight();
         pixels = ((DataBufferInt)MajEngine.getWindow().getImage().getRaster().getDataBuffer()).getData();
         depthBuffer = new int[pixels.length];
+        limX = 0;
+        limY = 0;
+        limW = width;
+        limH = height;
     }
     
     public void clear()
@@ -51,7 +56,7 @@ public class Renderer
     
     public void setPixel(int x, int y, int value)
     {
-        if(x < 0 || x >= width || y < 0 || y >= height)
+        if(x < limX || x >= limX + limW || y < limY || y >= limY + limH)
             return;
         int index = x + y * width;
         if(value == 0xffff00ff)
@@ -127,5 +132,20 @@ public class Renderer
     {
         this.font = font;
     }
-   
+    
+    public void setLimits(int limX, int limY, int limW, int limH)
+    {
+        this.limX = limX;
+        this.limY = limY;
+        this.limW = limW;
+        this.limH = limH;
+    }
+    
+    public void resetLimit()
+    {
+        limX = 0;
+        limY = 0;
+        limW = width;
+        limH = height;
+    }
 }

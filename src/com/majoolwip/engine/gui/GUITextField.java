@@ -23,6 +23,7 @@ import com.majoolwip.engine.Renderer;
 import com.majoolwip.engine.gfx.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.Scanner;
 
 /**
  *
@@ -180,5 +181,6 @@ public class GUITextField extends GUIObject
         }
         r.resetLimit();
     }
+    
     
 }
